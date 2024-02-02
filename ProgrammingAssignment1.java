@@ -1,4 +1,4 @@
-public class ProgrammingAssignment1
+class SY2023bit501
 {
 public int getValidRegistrationsCount(String []enroll)
 {
@@ -46,7 +46,7 @@ public int getValidRegistrationsCount(String []enroll)
 public static void main(String[] args)
 {
 	String []enrollment = {"2023bcd501","2023bit501","2023bcs501","2023bch501","2023bme501","2023abc501","202334566","abcdefghij","2023BIT5@5",""};
-        ProgrammingAssignment1 data = new ProgrammingAssignment1();
+	SY2023bit501 data = new SY2023bit501();
 	int count  =data.getValidRegistrationsCount(enrollment);
 	System.out.println(count);
 }
