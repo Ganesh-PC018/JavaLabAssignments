@@ -61,7 +61,7 @@ public int getValidRegistrationsCount(String []enroll)
 }
 public static void main(String[] args)
 {
-	String []enrollment = {null,"2023Bit501","1999bit501","2025bcs001"};
+	String []enrollment = {null,"2023Bit501","1999bit501","2025bcs001","abcdbit501"};
 	SY2023bit501 data = new SY2023bit501();
 	int count  =data.getValidRegistrationsCount(enrollment);
 	System.out.println(count);
