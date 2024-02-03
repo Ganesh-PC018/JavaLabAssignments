@@ -4,9 +4,17 @@ public int getValidRegistrationsCount(String []enroll)
 {
 	int count =0;
 	boolean isValid =true;
+	if(enroll == null)
+	{
+		return -1;
+	}
 	for(int i=0;i<enroll.length;i++)
 	{
 		isValid =true;
+		if(enroll[i] == null)
+		{
+			continue;
+		}
 		if(enroll[i].length() != 10)
 		{
 			continue;
@@ -20,6 +28,15 @@ public int getValidRegistrationsCount(String []enroll)
 					char charAtInd = enroll[i].charAt(j);
 					if(!Character.isDigit(charAtInd))
 					{	
+						isValid = false;
+						break;
+					}
+				}
+				else
+				{
+					Integer year = Integer.parseInt(enroll[i].substring(0, 4));
+					if(year < 2000 || year >=2024)
+					{
 						isValid = false;
 						break;
 					}
@@ -39,13 +56,12 @@ public int getValidRegistrationsCount(String []enroll)
 				count++;
 			}
 		}
-		
 	}	
 	return count;
 }
 public static void main(String[] args)
 {
-	String []enrollment = {"2023bcd501","2023bit501","2023bcs501","2023bch501","2023bme501","2023abc501","202334566","abcdefghij","2023BIT5@5",""};
+	String []enrollment = {null,"2023Bit501","1999bit501","2025bcs001"};
 	SY2023bit501 data = new SY2023bit501();
 	int count  =data.getValidRegistrationsCount(enrollment);
 	System.out.println(count);
