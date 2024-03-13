@@ -11,57 +11,84 @@ public int getValidRegistrationsCount(String []enroll)
 	for(int i=0;i<enroll.length;i++)
 	{
 		isValid =true;
-		if(enroll[i] == null)
+		if(enroll[i] == null || enroll[i].length() != 10)
 		{
 			continue;
 		}
-		if(enroll[i].length() != 10)
+		if(!(isValidYear(enroll[i].substring(0,4))))
 		{
+			isValid = false;
 			continue;
 		}
-		else
+		if(!(isValidDepartment(enroll[i].substring(4,7))))
 		{
-			for(int j=0;j<enroll[i].length();j++)
-			{
-				if(j < 4 || (j >= 7 && j < enroll[i].length()))
-				{
-					char charAtInd = enroll[i].charAt(j);
-					if(!Character.isDigit(charAtInd))
-					{	
-						isValid = false;
-						break;
-					}
-				}
-				else
-				{
-					Integer year = Integer.parseInt(enroll[i].substring(0, 4));
-					if(year < 2000 || year >=2024)
-					{
-						isValid = false;
-						break;
-					}
-				}
-				if(j >= 4 && j < 7)
-				{
-					String departmentId = enroll[i].substring(4,7);
-					if(!(departmentId.equalsIgnoreCase("bit") || departmentId.equalsIgnoreCase("bcs") || departmentId.equalsIgnoreCase("bme") || departmentId.equalsIgnoreCase("bch")))
-					{
-						isValid = false;
-						break;
-					}
-			       }
-			}
-			if(isValid)
-			{
-				count++;
-			}
+			isValid = false;
+			continue;
+		}
+		if(!(isDataValid(enroll[i].substring(7,10))))
+		{
+			isValid = false;
+			continue;
+		}
+		if(isValid)
+		{
+			count++;
 		}
 	}	
 	return count;
 }
+/*--------------------------------------------------------------------------isDataValid------------------------------------------------------------------------------------ */
+public static boolean isDataValid(String s)
+{
+	int enroll = 0;
+	for(int i=0;i<s.length();i++)
+	{
+		int data = (((int)s.charAt(i))-48);
+		enroll = enroll*10  + data;
+	}
+	if( enroll >= 1 && enroll <= 50)
+	{
+		return true;
+	}
+	return false;
+}
+/*--------------------------------------------------------------------------isValid Year------------------------------------------------------------------------------------ */
+public static boolean isValidYear(String enroll)
+{
+	boolean isDigit = true;
+	for(int i=0;i<enroll.length();i++)
+	{
+		char charAtInd = enroll.charAt(i);
+					if(!Character.isDigit(charAtInd))
+					{	
+					    isDigit = false;
+						break;
+					}
+	}
+	int year = Integer.parseInt(enroll);
+	if(isDigit && (year >= 2000 && year <= 2024))
+	{
+		return true;
+	}
+	return false;
+}
+/*--------------------------------------------------------------------------isValid isValidDepartment------------------------------------------------------------------------------------ */
+
+public static boolean isValidDepartment(String dept)
+{
+	String []departmentID = {"bit","bcs","bch","bmh"};
+	for(int i=0;i<departmentID.length;i++)
+	{
+		if(departmentID[i].equalsIgnoreCase(dept))
+		{
+			return true;
+		}
+	}
+	return false;
+}
 public static void main(String[] args)
 {
-	String []enrollment = {null,"2023Bit501","1999bit501","2025bcs001","abcdbit501"};
+	String []enrollment = {null,"2023bit002","2023bit1bc","2023bit100","2022bit024","1224789644743764"};
 	SY2023bit501 data = new SY2023bit501();
 	int count  =data.getValidRegistrationsCount(enrollment);
 	System.out.println(count);
