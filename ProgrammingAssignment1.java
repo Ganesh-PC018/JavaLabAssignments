@@ -88,7 +88,12 @@ public static boolean isValidDepartment(String dept)
 }
 public static void main(String[] args)
 {
-	String []enrollment = {null,"2023bit002","2023bit1bc","2023bit100","2022bit024","1224789644743764"};
+	// String []enrollment = {null,"2023bit002","2023bit1bc","2023bit100","2022bit024","1224789644743764"};
+	String []enrollment = new String[1000000];
+	CodeOpt obj = new CodeOpt();
+	obj.generateRandomYear(enrollment);
+	obj.generateRandomDepartmentId(enrollment);
+	obj.generateRandomSerialNumber(enrollment);
 	SY2023bit501 data = new SY2023bit501();
 	int count  =data.getValidRegistrationsCount(enrollment);
 	System.out.println(count);

@@ -28,11 +28,17 @@
 
     public double div(double num1,double num2)
     {
-        if(num2 == 0)
+        double num=-1d;
+        try
         {
-            return -1d;
+            num = num1/num2;
         }
-        return num1/num2;
+       catch(ArithmeticException e)
+       {
+        System.out.println("Can not Divide by Zero..!!");
+       }
+
+       return num;
     }
 
     public long factorial(long num)
@@ -73,7 +79,7 @@
 	return lcm(num1%num2,num2);
    }
     
-   public double[] answerData(double numerator,double denominator)
+   public double[] mixedFraction(double numerator,double denominator)
    {
 	double lcmR = lcm(numerator,denominator);
 	numerator  = numerator/lcmR;
@@ -83,6 +89,66 @@
 	return new double[]{ans,rem,denominator};	
    }
    
+   public double[][] matrixData(int size1,int size2,double array[])
+   {
+	double [][]matrixData = new double[size1][size2];
+	int k=0;
+	for(int i=0;i<size1;i++)
+	{
+		for(int j=0;j<size2;j++)
+		{
+			matrixData[i][j] = array[k];
+			k++;
+                }
+        }
+
+      return matrixData;
+    }
+    
+    public double[][] matrixAddition(int size1,int size2,double [][]array1,double [][]array2)
+    {
+	double [][]add = new double[size1][size2];
+	for(int i=0;i<size1;i++)
+	{
+		for(int j=0;j<size2;j++)
+		{
+			add[i][j] = array1[i][j]+array2[i][j];
+		} 
+         }
+	return add;
+    }
+    
+//     public double[] matrixMultiplication(int size1,int size2,double [][]array1,double[][] array2)
+//     {	
+// 	double []multi = new double[size1];
+// 	for(int i=0;i<size1;i++)
+// 	{
+// 		for(int j=0;j<size2;j++)
+// 		{
+// 			for(int k=0;k<size2;k++)
+// 			{
+// 				multi[i][j] += array1[j][k]*array2[k][j];	
+// 			}	
+// 	        }
+//           }
+//         return multi;
+//    }
+	
+    public void printMatrix(int size1,int size2,double [][]result)
+    {
+	for(int i=0;i<size1;i++)
+	{
+		for(int j=0;j<size2;j++)
+		{
+			System.out.print(result[i][j]+"  ");
+		} 
+		System.out.println();
+         }
+    }
+
+  
+		
+			
   public double mod(double num,double modulo)
   {
 	return num%modulo;
@@ -106,22 +172,36 @@
   double r,result,q,denominator,multiplicant,ans;
   public static void main(String[] args) 
   {
+    try {
 	EngineeringCalci o = new EngineeringCalci(18,12);
-        double arr[] = o.answerData(o.q,o.denominator);
+        double arr[] = o.mixedFraction(o.q,o.denominator);
         o.result = arr[0];
         o.r  = arr[1];
         o.multiplicant = arr[2];
         System.out.println(o);
         EngineeringCalci type1 = o.addition(10d,10d);
         EngineeringCalci type2 = new EngineeringCalci();
-	type2.result = 20d;
-	type2.r = 30d;
+	    type2.result = 20d;
+	    type2.r = 30d;
         EngineeringCalci type3 = new EngineeringCalci();
-	type3.result = 40d;
-	type3.r = 50d;
+	    type3.result = 40d;
+	    type3.r = 50d;
         EngineeringCalci type4 = o.addition(type2,type3);
         System.out.println(type4+"i");
-        System.out.println(o.abs(-19l));	
+        System.out.println(o.abs(-19l));
+	double	array[] = new double[]{1,2,3,4,5,6,7,8,9};
+	EngineeringCalci data = new EngineeringCalci();
+	double data1[][] = data.matrixData(3,3,array);
+	double data2[][] = data.matrixData(3,3,array);
+    o.printMatrix(3,3,o.matrixAddition(3,3,data1,data2));
+    }
+    catch (Exception e) {
+        System.out.println(e);
+    }
+    System.out.println("Rest of The Code");
+	// o.printMatrix1D(3,3,o.matrixMultiplication(3,3,data1,data2));
+	
+	
    }
     
    public EngineeringCalci addition(double num1,double num2)
@@ -133,6 +213,7 @@
 		return r1; 
    }
    
+   
    public EngineeringCalci addition(EngineeringCalci data1,EngineeringCalci data2)
    {
 		EngineeringCalci res = new EngineeringCalci();
@@ -142,7 +223,7 @@
    }
    public String toString()
    {
-	return result+" > "+r+" > "+ multiplicant;
+	return result+" ¬ "+r+" ¬ "+ multiplicant;
    }
    
     

@@ -34,7 +34,7 @@ class CodeOpt {
             for(int j=0;j<3;j++)
             {
                 int a = (int)(numberGiven%26l);
-                s = s + String.valueOf((char)(a+97));
+                s = s + String.valueOf((char)(a+65));
                 System.out.print("");
                 numberGiven = numberGiven/3+s.hashCode();
             }
@@ -96,7 +96,7 @@ class CodeOpt {
 /*---------------------------------------------------------------------------Class For Validate Registration Number---------------------------------------------------- */
 class ValidateRegisterIdEx
 {
-     public double getValidRegistrationsCount(String []range,int length,int choice)
+     public double getValidRegistrationsCount(String []range,int length,double avgArray[],int k,int choice)
       {
         // int count =0;
         if(range == null )
@@ -150,7 +150,7 @@ class ValidateRegisterIdEx
                 long timeEnd = System.nanoTime();
                 double timeMillis = (double)(timeEnd - timeStart)/1000000d;
                 // System.out.println(" Time Taken : "+((timeEnd - timeStart)/1000000d));
-                
+                avgArray[k] += timeMillis;
                 return timeMillis;
             }
             
@@ -160,49 +160,49 @@ class ValidateRegisterIdEx
 
 public static boolean isValidYear(String range)
 {
-    for(int i=0;i<4;i++)
-        {
-            if(!(Character.isDigit((int)range.charAt(i))))
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    /*---------------------------------------------------------------------------For Validate  Year Approach 2------------------------------------------------------------------- */
-    public static boolean isValidYear1(String range)
-    {
         for(int i=0;i<4;i++)
-        {
-            int num = (int)(range.charAt(i)-48);
-            // System.out.println(num);
-            if(!(num >=0 && num <= 9))
             {
-                return false;
+                if(!(Character.isDigit((int)range.charAt(i))))
+                {
+                    return false;
+                }
             }
-        }
-        return true;
-      }
-      /*---------------------------------------------------------------------------For Validate  Year Approach 3------------------------------------------------------------------- */
-      
-      public static boolean isValidYear2(String range)
-      {
-        int i=0;
-        int data = 0,temp =0;
-        while(range.length() > i)
-        {
-            temp = range.charAt(i);
-            data = data*10+temp;
-            i++;
-        }
-        if(data > 0 && data <= 9999)
-        {
             return true;
         }
-        return false;
-    }
     
+        /*---------------------------------------------------------------------------For Validate  Year Approach 3------------------------------------------------------------------- */
+        
+        public static boolean isValidYear2(String range)
+        {
+            int i=0;
+            int data = 0,temp =0;
+            while(range.length() > i)
+            {
+                temp = range.charAt(i);
+                data = data*10+temp;
+                i++;
+            }
+            if(data > 0 && data <= 9999)
+            {
+                return true;
+            }
+            return false;
+        }
+        
+        /*---------------------------------------------------------------------------For Validate  Year Approach 2------------------------------------------------------------------- */
+        public static boolean isValidYear1(String range)
+        {
+            for(int i=0;i<4;i++)
+            {
+                int num = (int)(range.charAt(i)-48);
+                // System.out.println(num);
+                if(!(num >=0 && num <= 9))
+                {
+                    return false;
+                }
+            }
+            return true;
+          }
     /*---------------------------------------------------------------------------For Validate  Year Approach 4------------------------------------------------------------------- */
       public static boolean isValidYear3(char  []range)
       {
@@ -277,7 +277,7 @@ public class CodeOptimizationEx {
         enroll.generateRandomDepartmentId(range);
         enroll.generateRandomSerialNumber(range);
         // Arrays.sort(range);
-        printData(range);
+        // printData(range);
         
         ValidateRegisterIdEx list = new ValidateRegisterIdEx();
         int count =0;
@@ -287,17 +287,33 @@ public class CodeOptimizationEx {
         //    count = list.getValidRegistrationsCount(range,20000,i);
         //    count = list.getValidRegistrationsCount(range,10000,i);
         //    count = list.getValidRegistrationsCount(range,1000,i);
-        System.out.println("|------------------------------------------------------------------------------------------|");
-        System.out.println("| Approch  :  |       50k\t\t|\t20k\t|\t10k\t|\t5k\t|");
-        for(int i=1;i<=4;i++)
+
+        double avgArray[] = new double[5];
+        for(int k=0;k<5;k++)
         {
 
-            System.out.println("| Approch  :  |     "+list.getValidRegistrationsCount(range, 50000, i)+"\t\t|"+list.getValidRegistrationsCount(range, 20000, i)+"\t\t|"+list.getValidRegistrationsCount(range, 10000, i)+"\t\t|"+list.getValidRegistrationsCount(range, 5000, i)+"\t\t|");
+            System.out.println("|------------------------------------------------------------------------------------------|");
+            System.out.println("| Approch  :  |       50k\t\t|\t20k\t|\t10k\t|\t5k\t|");
+            for(int i=1;i<=4;i++)
+            {
+                
+                System.out.println("| Approch  :  |     "+list.getValidRegistrationsCount(range, 50000,avgArray,k, i)+"\t\t|"+list.getValidRegistrationsCount(range, 20000,avgArray,k, i)+"\t\t|"+list.getValidRegistrationsCount(range, 10000,avgArray,k, i)+"\t\t|"+list.getValidRegistrationsCount(range, 5000,avgArray,k, i)+"\t\t|");
+            }
+            System.out.println("|                                                                              \t|");
+            System.out.println("|------------------------------------------------------------------------------------------|");
         }
-        System.out.println("|                                                                              \t|");
-        System.out.println("|------------------------------------------------------------------------------------------|");
+        
+        for(int i=0;i<5;i++)
+        {
+            // System.out.println("|------------------------------------------------------------------------------------------|");
+            // System.out.println("| Approch  :  |       50k\t\t|\t20k\t|\t10k\t|\t5k\t|");
+            System.out.println("Approach  []"+i+"] : " +avgArray[i]/5.0d);
+            // System.out.println("|                                                                              \t|");
+            // System.out.println("|------------------------------------------------------------------------------------------|");
 
-    System.out.println("count : "+count);
+        }
+
+    // System.out.println("count : "+count);
     
     }
 }

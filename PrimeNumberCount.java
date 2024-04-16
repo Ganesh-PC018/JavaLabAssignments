@@ -11,6 +11,7 @@
 */
 class RandomNumberGenerate
 {
+    Byte a11 =1;
     public void generateNumber(int []array,int length)
     {
         long givenNum=0l;
@@ -99,33 +100,40 @@ class PrimeNumberCount
 
     public static void main(String[] args) {
     int array[] = new int[1000000];
+    // int array1[] = new int[2];
     RandomNumberGenerate num = new RandomNumberGenerate();
     num.generateNumber(array, 1000000);
-    PrimeNumberCount.printData(array);
+    // PrimeNumberCount.printData(array);
     PrimeNumberCount objPrime = new PrimeNumberCount();
     System.out.println("|---------------------------------------------------------------|");
     System.out.println("|\t\t\tPrime or Non-Prime\t\t\t|");
+    int arr[] = new int[2];
     for(int i=0;i<5;i++)
     {
         long start = System.currentTimeMillis();
-        int arr[] = objPrime.countPrimeOrNot(array, 1000000);
+        arr = objPrime.countPrimeOrNot(array, 1000000);
         long end = System.currentTimeMillis();
         long duration = end-start;
         System.out.println("|\t\t\t\t"+duration+"\t\t\t\t|");
         
     }
+    System.out.println("Prime Count : "+arr[0]);
+    System.out.println("Non-Prime Count : "+arr[1]);
     System.out.println("|---------------------------------------------------------------|");
     System.out.println("|\t\t\tPrime or Non-Prime\t\t\t|");
     for(int i=0;i<5;i++)
     {
         long start = System.currentTimeMillis();
-        int arr[] = objPrime.countPrimeOrNot2(array, 1000000);
+         arr = objPrime.countPrimeOrNot2(array, 1000000);
         long end = System.currentTimeMillis();
         long duration = end-start;
         System.out.println("|\t\t\t\t"+duration+"\t\t\t\t|");
         
     }
-    }
+    System.out.println("Prime Count : "+arr[0]);
+    System.out.println("Non-Prime Count : "+arr[1]);
+    System.out.println("|---------------------------------------------------------------|");
+}
 
     public static void printData(int array[])
     {
